@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app id="app">
 
     <AppNavDrawer/>
     <v-main>
@@ -29,3 +29,8 @@ export default {
   }
 }
 </script>
+<style>
+#app {
+  background-image: linear-gradient(-35deg, #3e508f 0%, #7865b0 100%);
+}
+</style>
