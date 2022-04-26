@@ -1,11 +1,10 @@
 <template>
   <v-container class="justify-center" fill-height>
     <div class="d-flex flex-column">
-      <h1 class="mb-4 text-center">MoviXel</h1>
-      <v-btn color="primary" class="mb-4">Play the game</v-btn>
-      <v-btn color="primary" class="mb-4">Daily challenge</v-btn>
-      <v-btn color="primary" class="mb-4">tet</v-btn>
-      <v-btn color="primary" class="mb-4">tet</v-btn>
+      <h1 class="mb-4 text-center title--movixel">MoviXel</h1>
+      <v-btn x-large color="primary" class="mb-4 rounded-xl">Play the game</v-btn>
+      <v-btn x-large color="primary" disabled class="mb-4 rounded-xl">Daily challenge</v-btn>
+      <v-btn x-large color="primary" disabled class="mb-4 rounded-xl">Settings</v-btn>
 
     </div>
   </v-container>

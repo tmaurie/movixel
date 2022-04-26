@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Dosis:wght@200;300;400;500;600;700;800&display=swap');
+
+.title--movixel {
+  font-family: 'Bowlby One SC', cursive;
+  font-size: 70px;
+  text-shadow: 0 2px 4px rgba(52,32,107,.4);
+}
+#app {
+  &.theme--dark{
+    background-image: linear-gradient(-35deg, #3e508f 0%, #7865b0 100%);
+    background-attachment: fixed;
+    z-index: 1;
+  }
+
+  &.theme--light{
+    background-image: linear-gradient(-35deg, #D8FF94 0%, #83D9DC 100%);
+    background-attachment: fixed;
+    z-index: 1;
+  }
+
+  &::after {
+    content: "";
+    background: url(img/background.png);
+    opacity: .8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    z-index: -1;
+  }
+}

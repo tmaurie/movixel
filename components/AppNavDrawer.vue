@@ -45,12 +45,13 @@
     <v-app-bar
       app
       flat
+      color="transparent"
     >
 
       <v-app-bar-nav-icon aria-label="Nav button" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
 
-      <v-toolbar-title class="primary--text" id="title--f1">MoviXel</v-toolbar-title>
+      <v-toolbar-title class="primary--text title--movixel" id="title--f1">MoviXel</v-toolbar-title>
 
       <v-spacer/>
       <v-spacer></v-spacer>

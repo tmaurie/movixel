@@ -6,7 +6,7 @@
       <Nuxt/>
     </v-main>
 
-    <v-footer>
+    <v-footer color="transparent">
       <v-col
         class="text-center"
         cols="12"
@@ -30,7 +30,6 @@ export default {
 }
 </script>
 <style>
-#app {
-  background-image: linear-gradient(-35deg, #3e508f 0%, #7865b0 100%);
-}
+@import "assets/styles.css";
+
 </style>
