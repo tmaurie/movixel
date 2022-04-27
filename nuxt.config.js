@@ -13,13 +13,15 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Poppins|Bowlby+One+SC&display=swap'
+      }
     ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
+  css: ['~/assets/styles.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -57,12 +59,18 @@ export default {
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
+    treeShake: true,
     customVariables: ['~/assets/variables.scss'],
+    defaultAssets: {
+      font : {
+        family : 'Poppins'
+      }
+    },
     theme: {
       dark: true,
       themes: {
         dark: {
-          primary:'#43c792',
+          primary: '#43c792',
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
@@ -70,7 +78,7 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
         },
-        light : {
+        light: {
           primary: "#7865b0"
         }
       }
@@ -78,6 +86,5 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  }
+  build: {}
 }
