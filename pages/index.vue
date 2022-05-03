@@ -12,11 +12,8 @@
 </template>
 
 <script>
-import NuxtLogo from "../components/NuxtLogo";
-import VuetifyLogo from "../components/VuetifyLogo";
 
 export default {
   name: 'IndexPage',
-  components: {VuetifyLogo, NuxtLogo},
 }
 </script>
