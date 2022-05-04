@@ -31,6 +31,13 @@
         ></v-autocomplete>
       </v-col>
     </v-row>
+    <v-row justify="center">
+      <v-chip-group column >
+        <v-chip  color="error" class="text-decoration-line-through" v-for="(_try, idx) in tries" :key="idx">
+          {{ _try }}
+        </v-chip>
+      </v-chip-group>
+    </v-row>
 
 
   </v-container>
