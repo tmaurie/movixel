@@ -3,7 +3,7 @@
 
     <v-row justify="center">
       <v-progress-circular v-if="!loaded" indeterminate></v-progress-circular>
-      <ImagePixel v-else :poster="poster"></ImagePixel>
+      <ImagePixel v-else :poster="poster" :try-number="tries.length"></ImagePixel>
       <!--      <PixelImage v-if="poster" :poster="poster"></PixelImage>-->
       <!--      {{ movie.title }}-->
       <!--      <canvas class="rounded-xl" width="300" height="500" ref="posterCanvas"></canvas>-->
@@ -20,11 +20,11 @@
           v-model="autocompleteMovie"
           v-on:keyup.enter="checkAnswer"
           :items="results"
+          ref="inputAuto"
           :search-input.sync="search"
           item-text="title"
           clearable
           rounded
-          cache-items
           outlined
           hide-no-data
           return-object
@@ -43,6 +43,7 @@ const API_KEY = process.env.NUXT_ENV_API_KEY
 export default {
   name: "play",
   components: {ImagePixel},
+  // transition: 'bounce',
   head: {
     title: "Play"
   },
@@ -53,7 +54,8 @@ export default {
       loaded: false,
       search: null,
       autocompleteMovie: '',
-      poster: null
+      poster: null,
+      tries: []
     }
   },
   mounted() {
@@ -73,9 +75,15 @@ export default {
         this.poster.src = 'https://image.tmdb.org/t/p/w342' + this.movie.poster_path
       }).finally(() => (this.loaded = true))
     },
-    checkAnswer() {
-      if (this.movie.title === this.autocompleteMovie.title) {
-        alert(this.movie.title)
+    checkAnswer(input) {
+      if (input.target.value !== "" && !this.tries.includes(input.target.value) && this.tries.length < 6) {
+        this.tries.push(input.target.value)
+        console.log(this.tries.length)
+
+        if (this.movie.title === input.target.value) {
+          // alert(this.movie.title)
+        }
+        this.$refs.inputAuto.reset()
       }
     },
   },

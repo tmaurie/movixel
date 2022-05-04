@@ -6,35 +6,40 @@
 </template>
 
 <script>
+
+import {pixelizeImage} from "@/plugins/utils";
+
+const ratio_by_try = [60, 45, 30, 20, 10, 7, 1]
+
 export default {
-  name: "PixelImage",
+  name: "ImagePixel",
   props: {
-    poster: {}
+    poster: {},
+    tryNumber: {}
   },
 
   mounted() {
     const canvas = document.getElementById("canvas");
-    this.pixelateImage(canvas, this.poster, 60)
+    this.initCanvas(canvas, this.poster, ratio_by_try[this.tryNumber])
+  },
+
+  updated() {
+    const canvas = document.getElementById("canvas");
+    pixelizeImage(canvas, this.poster, ratio_by_try[this.tryNumber])
+  },
+
+  watch: {
+    tryNumber() {
+      const canvas = document.getElementById("canvas");
+      pixelizeImage(canvas, this.poster, ratio_by_try[this.tryNumber])
+    }
   },
 
   methods: {
-    pixelateImage(canvas, img, ratio) {
+    initCanvas(canvas, img, ratio) {
       img.onload = function () {
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-
-        const ctx = canvas.getContext('2d');
-        ctx.imageSmoothingEnabled = false;
-
-        const smallCanvas = document.createElement('canvas');
-        smallCanvas.width = img.naturalWidth / ratio;
-        smallCanvas.height = img.naturalHeight / ratio;
-        const ctx2 = smallCanvas.getContext('2d');
-
-        ctx2.drawImage(img, 0, 0, smallCanvas.width, smallCanvas.height);
-        ctx.drawImage(smallCanvas, 0, 0, smallCanvas.width, smallCanvas.height, 0, 0, canvas.width, canvas.height);
+        pixelizeImage(canvas, img, ratio)
       }
-
     }
   }
 }
