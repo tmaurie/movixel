@@ -1,75 +1,45 @@
 <template>
+
   <div>
-    <canvas v-if="poster" class="rounded-xl" width="300" height="500" ref="posterCanvas"></canvas>
-
+    <canvas class="rounded-xl" id="canvas"></canvas>
   </div>
-
 </template>
+
 <script>
 export default {
-  name: 'ImagePixel',
+  name: "PixelImage",
   props: {
-    poster: {},
-  },
-  data() {
-    return {}
+    poster: {}
   },
 
   mounted() {
-    //
-    // console.log("mounted")
-    // window.addEventListener('load', () => {
-    //   this.pixelateImage(this.$refs.posterCanvas, this.poster, 30)
-    //
-    // })
-    this.pixelateImage(this.$refs.posterCanvas, this.poster, 30)
-  },
-  updated() {
-    this.pixelateImage(this.$refs.posterCanvas, this.poster, 30)
-
+    const canvas = document.getElementById("canvas");
+    this.pixelateImage(canvas, this.poster, 60)
   },
 
   methods: {
-
     pixelateImage(canvas, img, ratio) {
+      img.onload = function () {
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
 
-      // console.log(canvas)
-      // console.log(img)
-      // console.log(ratio)
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = false;
 
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
+        const smallCanvas = document.createElement('canvas');
+        smallCanvas.width = img.naturalWidth / ratio;
+        smallCanvas.height = img.naturalHeight / ratio;
+        const ctx2 = smallCanvas.getContext('2d');
 
-      const ctx = canvas.getContext('2d');
-      ctx.imageSmoothingEnabled = false;
-      const smallCanvas = this.reduceImage(img, ratio);
+        ctx2.drawImage(img, 0, 0, smallCanvas.width, smallCanvas.height);
+        ctx.drawImage(smallCanvas, 0, 0, smallCanvas.width, smallCanvas.height, 0, 0, canvas.width, canvas.height);
+      }
 
-      ctx.drawImage(
-        smallCanvas,
-        0, 0,
-        smallCanvas.width, smallCanvas.height,
-        0, 0,
-        canvas.width, canvas.height
-      );
-    },
-
-    reduceImage(img, ratio) {
-
-      const canvas = document.createElement('canvas');
-
-      canvas.width = img.naturalWidth / ratio;
-      canvas.height = img.naturalHeight / ratio;
-
-      const ctx = canvas.getContext('2d');
-
-      ctx.drawImage(
-        img,
-        0, 0,
-        canvas.width, canvas.height
-      );
-
-      return canvas;
     }
   }
 }
 </script>
+
+<style scoped>
+
+</style>

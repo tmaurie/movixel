@@ -4,6 +4,10 @@
     <v-row justify="center">
       <v-progress-circular v-if="!loaded" indeterminate></v-progress-circular>
       <ImagePixel v-else :poster="poster"></ImagePixel>
+      <!--      <PixelImage v-if="poster" :poster="poster"></PixelImage>-->
+      <!--      {{ movie.title }}-->
+      <!--      <canvas class="rounded-xl" width="300" height="500" ref="posterCanvas"></canvas>-->
+      <!--      <v-btn @click="pixelateImage($refs.posterCanvas, poster, 30)"></v-btn>-->
     </v-row>
 
 
@@ -55,9 +59,6 @@ export default {
   mounted() {
     this.getMovie()
   },
-  updated() {
-
-  },
 
   methods: {
     getMovie() {
@@ -70,10 +71,8 @@ export default {
         this.movie = res
         this.poster = new Image(350, 500)
         this.poster.src = 'https://image.tmdb.org/t/p/w342' + this.movie.poster_path
-      }).then().finally(() => (this.loaded = true))
+      }).finally(() => (this.loaded = true))
     },
-
-
     checkAnswer() {
       if (this.movie.title === this.autocompleteMovie.title) {
         alert(this.movie.title)
