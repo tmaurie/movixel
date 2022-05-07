@@ -48,10 +48,12 @@
       color="transparent"
     >
 
-      <v-app-bar-nav-icon aria-label="Nav button" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon v-show="$vuetify.breakpoint.mdAndDown" aria-label="Nav button"
+                          @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
 
-      <v-toolbar-title class="primary--text title--movixel" id="title--f1">MoviXel</v-toolbar-title>
+      <v-toolbar-title v-if="$nuxt.$route.path !== '/'" class="primary--text title--movixel" id="title--f1">MoviXel
+      </v-toolbar-title>
 
       <v-spacer/>
       <v-spacer></v-spacer>
