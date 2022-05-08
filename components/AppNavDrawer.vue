@@ -52,7 +52,8 @@
                           @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
 
-      <v-toolbar-title v-if="$nuxt.$route.path !== '/'" class="primary--text title--movixel" id="title--f1">MoviXel
+      <v-toolbar-title v-if="$nuxt.$route.path !== '/'" class="primary--text title--movixel" id="title--f1">
+        <NuxtLink class="text-decoration-none" to="/">MoviXel</NuxtLink>
       </v-toolbar-title>
 
       <v-spacer/>
