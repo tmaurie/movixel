@@ -4,12 +4,7 @@
     <v-row justify="center">
       <v-progress-circular v-if="!loaded" indeterminate></v-progress-circular>
       <ImagePixel v-else :poster="poster" :try-number="tries.length"></ImagePixel>
-      <!--      <PixelImage v-if="poster" :poster="poster"></PixelImage>-->
-      <!--      {{ movie.title }}-->
-      <!--      <canvas class="rounded-xl" width="300" height="500" ref="posterCanvas"></canvas>-->
-      <!--      <v-btn @click="pixelateImage($refs.posterCanvas, poster, 30)"></v-btn>-->
     </v-row>
-
 
     <v-row justify="center">
       <v-col
@@ -20,14 +15,15 @@
           v-model="autocompleteMovie"
           v-on:keyup.enter="checkAnswer"
           :items="results"
+          :loading="isLoading"
           ref="inputAuto"
           :search-input.sync="search"
           item-text="title"
-          clearable
-          rounded
-          outlined
           hide-no-data
-          return-object
+          hide-details
+          flat
+          outlined
+          rounded
         ></v-autocomplete>
       </v-col>
     </v-row>
@@ -39,7 +35,6 @@
       </v-chip-group>
     </v-row>
 
-
   </v-container>
 </template>
 
@@ -50,7 +45,7 @@ const API_KEY = process.env.NUXT_ENV_API_KEY
 export default {
   name: "play",
   components: {ImagePixel},
-  // transition: 'bounce',
+  transition: 'bounce',
   head: {
     title: "Play"
   },
@@ -59,6 +54,7 @@ export default {
       movie: [],
       results: [],
       loaded: false,
+      isLoading: false,
       search: null,
       autocompleteMovie: '',
       poster: null,
@@ -84,11 +80,9 @@ export default {
     },
     checkAnswer(input) {
       if (input.target.value !== "" && !this.tries.includes(input.target.value) && this.tries.length < 6) {
-        this.tries.push(input.target.value)
-        console.log(this.tries.length)
 
-        if (this.movie.title === input.target.value) {
-          // alert(this.movie.title)
+        if (this.movie.title !== input.target.value) {
+          this.tries.push(input.target.value)
         }
         this.$refs.inputAuto.reset()
       }
@@ -96,6 +90,7 @@ export default {
   },
   watch: {
     search(input) {
+      this.isLoading = true
       if (input != null && input.length > 0) {
         this.$axios.$get('search/movie',
           {
@@ -105,9 +100,12 @@ export default {
             }
           }).then((res) => {
           this.results = res.results
+        }).finally(() => {
+          this.isLoading = false
         })
       } else {
         this.results = []
+        this.isLoading = false
       }
     }
   }
