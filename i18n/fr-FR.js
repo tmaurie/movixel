@@ -4,8 +4,13 @@ export default {
     play: 'Jouer au jeu',
     daily: 'Challenge quotidien',
     settings: 'Paramètres',
+    rules: ' Trouver le film a partir de l\'affiche pixelisée '
 
   },
-  play: {}
+  play: {
+    won: 'BIEN JOUEJ !',
+    lost: 'PERDU !',
+    answer: 'Le film était '
+  }
 
 }
