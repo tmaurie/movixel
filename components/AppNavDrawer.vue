@@ -52,13 +52,20 @@
                           @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
 
-      <v-toolbar-title v-if="$nuxt.$route.path !== '/'" class="primary--text title--movixel" id="title--f1">
-        <NuxtLink class="text-decoration-none" to="/">MoviXel</NuxtLink>
+      <v-toolbar-title v-if="$nuxt.$route.path !== localePath('/')" class="primary--text title--movixel"
+                       id="title--movixel">
+        <NuxtLink class="text-decoration-none" :to="localePath('/')">MoviXel</NuxtLink>
       </v-toolbar-title>
 
       <v-spacer/>
       <v-spacer></v-spacer>
 
+
+      <v-btn v-for="locale in availableLocales"
+             :key="locale.code"
+             :to="switchLocalePath(locale.code)"
+             elevation="0" light fab small>{{ locale.icon }}
+      </v-btn>
       <v-btn aria-label="Theme button" icon @click="$vuetify.theme.dark = !$vuetify.theme.dark">
 
         <v-icon>
@@ -84,12 +91,16 @@ export default {
       this.drawer = false
     },
   },
+  computed: {
+    availableLocales() {
+      return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
+    }
+  }
 }
 </script>
 <style>
-#title--f1 {
-  /*font-family: "Grenze", sans-serif;*/
-  font-size: 2.5rem;
+#title--movixel {
+  font-size: 2rem;
   font-weight: bold;
 }
 </style>

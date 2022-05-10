@@ -9,7 +9,7 @@ export default {
     meta: [
       {charset: 'utf-8'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-      {hid: 'description', name: 'description', content: ''},
+      {hid: 'description', name: 'description', content: 'Guess the movie from pixelated posters'},
       {name: 'format-detection', content: 'telephone=no'}
     ],
     link: [
@@ -60,6 +60,22 @@ export default {
 
   i18n: {
     /* module options */
+    langDir: 'i18n/',
+    defaultLocale: 'en',
+    locales: [
+      {
+        code: 'en',
+        name: 'English',
+        icon: '🇬🇧',
+        file: 'en-US.js'
+      },
+      {
+        code: 'fr',
+        name: 'Français',
+        icon: '🇫🇷',
+        file: 'fr-FR.js'
+      }
+    ]
   },
 
   publicRuntimeConfig: {
