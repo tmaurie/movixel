@@ -64,7 +64,8 @@
       <v-btn v-for="locale in availableLocales"
              :key="locale.code"
              :to="switchLocalePath(locale.code)"
-             elevation="0" light fab small>{{ locale.icon }}
+             elevation="0" light fab small
+      >{{ locale.icon }}
       </v-btn>
       <v-btn aria-label="Theme button" icon @click="$vuetify.theme.dark = !$vuetify.theme.dark">
 

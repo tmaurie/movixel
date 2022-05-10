@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mt-6">
 
     <v-row justify="center">
       <v-progress-circular v-if="!loaded" indeterminate></v-progress-circular>
@@ -62,18 +62,25 @@ export default {
     }
   },
   mounted() {
-    this.getMovie()
+    this.getRandomMovie()
   },
 
   methods: {
-    getMovie() {
-      this.$axios.$get("/movie/634649",
+    getRandomMovie() {
+      const language = this.$i18n.locale === 'en' ? 'en-US' : 'fr-FR'
+
+      let randomPage = Math.floor(Math.random() * 5)
+      let randomItem = Math.floor(Math.random() * 19)
+      this.$axios.$get("/movie/popular",
         {
           params: {
-            api_key: API_KEY
+            api_key: API_KEY,
+            page: randomPage,
+            language: language
           }
         }).then((res) => {
-        this.movie = res
+        this.movie = res.results[randomItem]
+        console.log(this.movie)
         this.poster = new Image(350, 500)
         this.poster.src = 'https://image.tmdb.org/t/p/w342' + this.movie.poster_path
       }).finally(() => (this.loaded = true))
@@ -90,13 +97,16 @@ export default {
   },
   watch: {
     search(input) {
+      const language = this.$i18n.locale === 'en' ? 'en-US' : 'fr-FR'
+
       this.isLoading = true
       if (input != null && input.length > 0) {
         this.$axios.$get('search/movie',
           {
             params: {
               api_key: API_KEY,
-              query: input
+              query: input,
+              language: language
             }
           }).then((res) => {
           this.results = res.results
