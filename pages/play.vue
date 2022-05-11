@@ -3,7 +3,7 @@
 
     <v-row justify="center">
       <v-progress-circular v-if="!loaded" indeterminate></v-progress-circular>
-      <ImagePixel v-else :poster="poster" :try-number="tries.length"></ImagePixel>
+      <ImagePixel v-else :poster="poster" :try-number="tries.length" :winState="isWon"></ImagePixel>
     </v-row>
 
     <v-row justify="center">
@@ -35,6 +35,22 @@
       </v-chip-group>
     </v-row>
 
+    <v-dialog
+      v-model="dialog"
+      max-width="500"
+    >
+      <v-card>
+        <v-card-title class="text-h5 justify-center"
+                      v-text="isWon ?  $t('play.won') :  $t('play.lost')"></v-card-title>
+        <v-card-text class="text-center">
+          {{ $t('play.answer') }} <p class="text--primary">{{ movie.title }}</p>
+        </v-card-text>
+        <!--        <v-img alt="" class="rounded-xl" max-width="200"-->
+        <!--               :src="`https://image.tmdb.org/t/p/w200${this.movie.poster_path}`"></v-img>-->
+
+      </v-card>
+    </v-dialog>
+
   </v-container>
 </template>
 
@@ -58,7 +74,9 @@ export default {
       search: null,
       autocompleteMovie: '',
       poster: null,
-      tries: []
+      tries: [],
+      dialog: false,
+      isWon: false
     }
   },
   mounted() {
@@ -69,9 +87,9 @@ export default {
     getRandomMovie() {
       const language = this.$i18n.locale === 'en' ? 'en-US' : 'fr-FR'
 
-      let randomPage = Math.floor(Math.random() * 5)
+      let randomPage = Math.floor(Math.random() * 5) + 1;
       let randomItem = Math.floor(Math.random() * 19)
-      this.$axios.$get("/movie/popular",
+      this.$axios.$get("/movie/top_rated",
         {
           params: {
             api_key: API_KEY,
@@ -80,7 +98,6 @@ export default {
           }
         }).then((res) => {
         this.movie = res.results[randomItem]
-        console.log(this.movie)
         this.poster = new Image(350, 500)
         this.poster.src = 'https://image.tmdb.org/t/p/w342' + this.movie.poster_path
       }).finally(() => (this.loaded = true))
@@ -90,7 +107,12 @@ export default {
 
         if (this.movie.title !== input.target.value) {
           this.tries.push(input.target.value)
+        } else {
+          this.isWon = true;
         }
+
+        if (this.tries.length === 6 || this.isWon)
+          this.dialog = true
         this.$refs.inputAuto.reset()
       }
     },

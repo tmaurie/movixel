@@ -15,7 +15,8 @@ export default {
   name: "ImagePixel",
   props: {
     poster: {},
-    tryNumber: {}
+    tryNumber: {},
+    winState: {}
   },
 
   mounted() {
@@ -32,6 +33,10 @@ export default {
     tryNumber() {
       const canvas = document.getElementById("canvas");
       pixelizeImage(canvas, this.poster, ratio_by_try[this.tryNumber])
+    },
+    winState() {
+      const canvas = document.getElementById("canvas");
+      pixelizeImage(canvas, this.poster, 1)
     }
   },
 
