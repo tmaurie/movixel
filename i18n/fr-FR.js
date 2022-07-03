@@ -8,7 +8,7 @@ export default {
 
   },
   play: {
-    won: 'BIEN JOUEJ !',
+    won: 'BIEN JOUÉ !',
     lost: 'PERDU !',
     answer: 'Le film était '
   }
