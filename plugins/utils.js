@@ -1,3 +1,9 @@
+/**
+ * Pixelize a canvas
+ * @param canvas The canvas to pixelize
+ * @param img The image to use as a source
+ * @param ratio The ratio to use for the pixelization
+ */
 export function pixelizeImage(canvas, img, ratio) {
 
   canvas.width = 350;
@@ -17,6 +23,12 @@ export function pixelizeImage(canvas, img, ratio) {
   );
 }
 
+/**
+ * Reduce the image size to a given ratio.
+ * @param img The image to reduce.
+ * @param ratio The ratio to reduce the image to.
+ * @returns {HTMLCanvasElement}
+ */
 export function reduceImage(img, ratio) {
   const canvas = document.createElement('canvas');
 
