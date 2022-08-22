@@ -10,7 +10,8 @@ export default {
   play: {
     won: 'BIEN JOUÉ !!!!!',
     lost: 'PERDU !',
-    answer: 'Le film était '
+    answer: 'Le film était ',
+    replay: 'Rejouer'
   }
 
 }

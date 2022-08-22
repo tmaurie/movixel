@@ -45,8 +45,16 @@
         <v-card-text class="text-center">
           {{ $t('play.answer') }} <p class="text--primary">{{ movie.title }}</p>
         </v-card-text>
-        <!--        <v-img alt="" class="rounded-xl" max-width="200"-->
-        <!--               :src="`https://image.tmdb.org/t/p/w200${this.movie.poster_path}`"></v-img>-->
+        <!-- replay button -->
+        <v-card-actions>
+          <v-btn
+            color="primary"
+            text
+            @click="replay"
+          >
+            {{ $t('play.replay') }}
+          </v-btn>
+        </v-card-actions>
 
       </v-card>
     </v-dialog>
@@ -84,6 +92,13 @@ export default {
   },
 
   methods: {
+    // replay the game
+    replay() {
+      this.dialog = false
+      this.tries = []
+      this.getRandomMovie()
+    },
+    // get a random movie
     getRandomMovie() {
       const language = this.$i18n.locale === 'en' ? 'en-US' : 'fr-FR'
 

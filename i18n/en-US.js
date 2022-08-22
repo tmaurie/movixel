@@ -10,7 +10,8 @@ export default {
   play: {
     won: 'WELL DONE !',
     lost: 'LOST !',
-    answer: 'The movie was '
+    answer: 'The movie was ',
+    replay: 'Replay'
   }
 
 }
